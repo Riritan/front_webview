@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import WebView from "react-native-webview"
 import { PermissionsAndroid, Platform } from "react-native";
+import Pages from '../src/index';
 
 const requestPermissions = async () => {
   if (Platform.OS === "android") {
@@ -46,30 +47,31 @@ export default function App() {
     `;
 
   return (
-    <View style={styles.webview}>
-      <WebView
-        ref={webViewRef}
-        source={{ uri: 'https://0343-203-241-183-7.ngrok-free.app' }}
-        style={styles.webview}
-        javaScriptEnabled={true}
-        mediaPlaybackRequiresUserAction={false}
-        allowsInlineMediaPlayback={true}
-        originWhitelist={['*']}
-        incognito={true}
-        cacheEnabled={false}
-        clearCache={true}
-        mixedContentMode="always"
-        allowFileAccess={true}
-        allowUniversalAccessFromFileURLs={true}
-        onMessage={(event) => console.log("📩 WebView Message:", event.nativeEvent.data)}
-        injectedJavaScript={injectedJavaScript} // 📌 WebView에서 강제로 manifest.json 요청
-        onPermissionRequest={(event: any) => {
-          console.log("🔓 권한 요청:", event);
-          event.grant(); // 자동으로 카메라 권한 허용
-        }}
-        thirdPartyCookiesEnabled={false}
-      />
-    </View>
+    <Pages />
+    // <View style={styles.webview}>
+    //   <WebView
+    //     ref={webViewRef}
+    //     source={{ uri: 'https://6731-203-241-183-7.ngrok-free.app' }}
+    //     style={styles.webview}
+    //     javaScriptEnabled={true}
+    //     mediaPlaybackRequiresUserAction={false}
+    //     allowsInlineMediaPlayback={true}
+    //     originWhitelist={['*']}
+    //     incognito={true}
+    //     cacheEnabled={false}
+    //     clearCache={true}
+    //     mixedContentMode="always"
+    //     allowFileAccess={true}
+    //     allowUniversalAccessFromFileURLs={true}
+    //     onMessage={(event) => console.log("📩 WebView Message:", event.nativeEvent.data)}
+    //     injectedJavaScript={injectedJavaScript} // 📌 WebView에서 강제로 manifest.json 요청
+    //     onPermissionRequest={(event: any) => {
+    //       console.log("🔓 권한 요청:", event);
+    //       event.grant(); // 자동으로 카메라 권한 허용
+    //     }}
+    //     thirdPartyCookiesEnabled={false}
+    //   />
+    // </View>
   );
 }
 
