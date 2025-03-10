@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "src/pages/Main/MainPresenter.jsx", "src/pages/Auth/AuthPresenter.jsx"  ]
 }

@@ -25,7 +25,7 @@ const requestPermissions = async () => {
 };
 
 export default function Pose() {
-    const WEB_URL = 'https://db60-203-241-183-7.ngrok-free.app';
+    const WEB_URL = 'https://da41-203-241-183-12.ngrok-free.app';
     const webViewRef = useRef<any>(null);
 
     useEffect(() => {
