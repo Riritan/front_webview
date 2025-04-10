@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Auth, Main, Pose } from "./pages";
+import { Auth, Main, Pose, Profile, Login, Register  } from "./pages";
+import { Profiler } from "react";
 
 export default function Pages() {
     const Stack = createNativeStackNavigator();
@@ -10,6 +11,9 @@ export default function Pages() {
             <Stack.Screen name='auth' component={Auth} />
             <Stack.Screen name='main' component={Main} />
             <Stack.Screen name='pose' component={Pose} />
+            <Stack.Screen name='myPage' component={Profile} />
+            <Stack.Screen name='Login' component={Login}/>
+            <Stack.Screen name='Register' component={Register}/>
         </Stack.Navigator>
     )
 }

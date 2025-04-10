@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 
-export default function AuthPresenter({move}) {
+export default function AuthPresenter({move, navigation}) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>LOGO</Text>
@@ -12,6 +12,10 @@ export default function AuthPresenter({move}) {
                     <Text style={styles.buttonText}>학생</Text>
                 </TouchableOpacity>
             </View>
+
+            <TouchableOpacity onPress={() => navigation('Login')}>
+                <Text style={styles.loginButtonText}>로그인</Text>
+            </TouchableOpacity>
             
         </View>
     )
@@ -45,4 +49,14 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 18,
     },
+    loginButtonText: {
+        // flex: 1,
+        width: '100%',
+        color: '#000000',
+        textAlign: 'center',
+        fontSize: 16,
+        marginTop: 20,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+    }
 })

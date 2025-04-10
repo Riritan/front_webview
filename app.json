@@ -9,14 +9,30 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.FrontDemo"
     },
     "android": {
+      "plugins": [
+        [
+          "expo-camera",
+          {
+            "cameraPermission": "Allow FrontDemo to access your camera",
+            "microphonePermission": "Allow FrontDemo to access your microphone",
+            "recordAudioAndroid": true
+          }
+        ]
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["INTERNET"]
+      "permissions": [
+        "INTERNET",
+        "CAMERA",
+        "RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.FrontDemo"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +53,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "67dca3ab-269d-4fc3-8e5c-2c946e60b56a"
+      }
     }
   }
 }

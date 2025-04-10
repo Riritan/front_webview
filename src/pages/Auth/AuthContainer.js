@@ -7,10 +7,18 @@ export default function AuthContainer({
     const move = () => {
         navigation.navigate('main')
     }
+    const navigate = () => {
+        navigation.navigate('Login');
+    }
+    
 
     return (
         <AuthPresenter 
             move={move}
+
+            navigation={navigate}
         />
+
+        
     )
 }
