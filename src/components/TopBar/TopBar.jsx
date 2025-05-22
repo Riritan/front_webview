@@ -1,38 +1,41 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Switch } from "react-native";
-import { TopBar } from "./../../components/TopBar/TopBar";
+import { useNavigation } from "expo-router";
+import React, { Children } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function ProfilePresenter({
-    move,
+
+export const TopBar = ({
+    children,
     studentCode,
-    motivationMsg,
-    totalStudyTime,
-    subjectStudyTime,
-    setMotivationMsg,
-    setTotalStudyTime,
-    setSubjectStudyTime,
-    dDayList,
-    toggleDDay,
-}) {
-    return (
-        <View style={styles.container}>
-            <TopBar />
-            {/* 토글 스위치 설정 */}
-            <View style={styles.switchContainer}>
-                <View style={styles.switchRow}>
-                    <Text style={styles.switchLabel}>동기부여 메시지</Text>
-                    <Switch value={motivationMsg} onValueChange={setMotivationMsg} />
+}) => {
+    const navigation = useNavigation();
+    
+    return(
+        <View>
+            {children}
+            <View>
+                {/* 상단 프로필 정보 */}
+                <View style={styles.profileContainer}>
+                    <Image source={require('../../../assets/images/profile.png')} style={styles.profileImage} />
+                    <View style={styles.profileTextContainer}>
+                        <Text style={styles.name}>OOO님</Text>
+                        <Text style={styles.greeting}>오늘 하루도 힘내세요</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.linkText}>프로필 사진 변경</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.switchRow}>
-                    <Text style={styles.switchLabel}>총 학습시간</Text>
-                    <Switch value={totalStudyTime} onValueChange={setTotalStudyTime} />
-                </View>
-                <View style={styles.switchRow}>
-                    <Text style={styles.switchLabel}>과목별 학습시간</Text>
-                    <Switch value={subjectStudyTime} onValueChange={setSubjectStudyTime} />
+
+                {/* 학생 코드 영역 */}
+                <View style={styles.studentCodeContainer}>
+                    <Text style={styles.studentCodeLabel}>학생코드</Text>
+                    <Text style={styles.studentCode}>{studentCode}</Text>
+                    <TouchableOpacity>
+                        <Text style={styles.changeCode}>학생코드 변경</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

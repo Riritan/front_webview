@@ -12,13 +12,13 @@ export default function MainPresenter({move, todos, onTodoChange, checkedItems, 
             <TouchableOpacity style={styles.button} onPress={() => move('pose')}>
             <Text style={styles.buttonText}>학습 시작</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => move('pose')}>
+            <TouchableOpacity style={styles.button} onPress={() => move('planner')}>
                 <Text style={styles.buttonText}>스터디플래너</Text>
             </TouchableOpacity>
             </View>
             
             <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => move('pose')}>
+            <TouchableOpacity style={styles.button} onPress={() => move('record')}>
             <Text style={styles.buttonText}>학습 통계</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={() => move('myPage')}>
