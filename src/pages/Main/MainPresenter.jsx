@@ -1,7 +1,14 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native"
 import CheckBox from 'expo-checkbox';
 
-export default function MainPresenter({move, todos, onTodoChange, checkedItems, onCheckChange}) {
+export default function MainPresenter({
+    move,
+    todos,
+    onTodoChange,
+    checkedItems,
+    onCheckChange,
+    onDbTest
+}) {
 
     return (
         <View style={styles.container}>
@@ -25,6 +32,12 @@ export default function MainPresenter({move, todos, onTodoChange, checkedItems, 
                 <Text style={styles.buttonText}>마이페이지</Text>
             </TouchableOpacity>       
             </View>
+
+            {/* 2. DB 테스트를 위한 버튼 추가 */}
+            <TouchableOpacity style={styles.testButton} onPress={onDbTest}>
+                <Text style={styles.buttonText}>DB 테스트 실행 (콘솔 확인)</Text>
+            </TouchableOpacity>
+
 
             <View style={styles.todoContainer}>
                 <Text style={styles.todoTitle}>
@@ -75,6 +88,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         flex: 1, 
         alignItems: 'center',
+    },
+        // 3. 테스트 버튼 스타일 추가
+    testButton: {
+        backgroundColor: '#ffc107', // 눈에 띄는 색상
+        padding: 15,
+        borderRadius: 5,
+        alignItems: 'center',
+        width: '80%',
+        marginTop: 10,
     },
     buttonText: {
         color: '#000000',

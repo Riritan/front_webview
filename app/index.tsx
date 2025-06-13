@@ -1,9 +1,11 @@
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useEffect, useRef, useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import WebView from "react-native-webview"
+
 import { PermissionsAndroid, Platform } from "react-native";
 import Pages from '../src/index';
+import { initDatabase } from '../src/db/db'; // 1. 데이터베이스 초기화 함수 가져오기
+
 
 const requestPermissions = async () => {
   if (Platform.OS === "android") {
@@ -26,17 +28,42 @@ const requestPermissions = async () => {
 };
 
 export default function App() {
-  const webViewRef = useRef<any>(null);
+    // --- 추가된 부분 ---
+    const [isReady, setIsReady] = useState(false); // 2. 앱 준비 상태를 관리할 state 추가
+    // ------------------
 
-  useEffect(() => {
-    requestPermissions();
-  }, []);
+    const webViewRef = useRef<any>(null); // useRef 타입을 <any>에서 <null>로 변경하거나 WebView 타입으로 지정하는 것이 좋습니다.
+
+    useEffect(() => {
+        // --- 수정된 부분 ---
+        const prepareApp = async () => {
+            try {
+                // 여러 비동기 준비 작업을 병렬로 실행할 수 있습니다.
+                await Promise.all([
+                    requestPermissions(),
+                    initDatabase()
+                ]);
+                console.log('✅ 앱 준비 완료 (권한 및 데이터베이스)');
+            } catch (e) {
+                console.warn('❌ 앱 준비 중 오류 발생:', e);
+            } finally {
+                // 성공하든 실패하든 앱을 표시하도록 상태를 업데이트합니다.
+                setIsReady(true);
+            }
+        };
+
+        prepareApp();
+        // ------------------
+    }, []);
+
 
   useEffect(() => {
     if (webViewRef.current) {
       webViewRef.current.clearCache(true);
     }
   }, []);
+
+
 
   const injectedJavaScript = `
         (function() {
@@ -48,30 +75,6 @@ export default function App() {
 
   return (
     <Pages />
-    // <View style={styles.webview}>
-    //   <WebView
-    //     ref={webViewRef}
-    //     source={{ uri: 'https://6731-203-241-183-7.ngrok-free.app' }}
-    //     style={styles.webview}
-    //     javaScriptEnabled={true}
-    //     mediaPlaybackRequiresUserAction={false}
-    //     allowsInlineMediaPlayback={true}
-    //     originWhitelist={['*']}
-    //     incognito={true}
-    //     cacheEnabled={false}
-    //     clearCache={true}
-    //     mixedContentMode="always"
-    //     allowFileAccess={true}
-    //     allowUniversalAccessFromFileURLs={true}
-    //     onMessage={(event) => console.log("📩 WebView Message:", event.nativeEvent.data)}
-    //     injectedJavaScript={injectedJavaScript} // 📌 WebView에서 강제로 manifest.json 요청
-    //     onPermissionRequest={(event: any) => {
-    //       console.log("🔓 권한 요청:", event);
-    //       event.grant(); // 자동으로 카메라 권한 허용
-    //     }}
-    //     thirdPartyCookiesEnabled={false}
-    //   />
-    // </View>
   );
 }
 
